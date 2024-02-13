@@ -10,7 +10,11 @@
 #ifndef INCLUDED_IMATHGL_H
 #define INCLUDED_IMATHGL_H
 
-#include <GL/gl.h>
+#if defined(__APPLE__)
+# include <OpenGL/gl.h>
+#else
+# include <GL/gl.h>
+#endif
 
 #include "ImathFun.h"
 #include "ImathMatrix.h"
