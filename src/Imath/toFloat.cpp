@@ -19,6 +19,7 @@
 
 using namespace std;
 
+#if 0
 //---------------------------------------------------
 // Interpret an unsigned short bit pattern as a half,
 // and convert that half to the corresponding float's
@@ -127,3 +128,4 @@ main ()
     cout << "};\n";
     return 0;
 }
+#endif // 0
