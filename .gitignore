@@ -1,6 +1,11 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # Copyright (c) Contributors to the OpenEXR Project.
 
+.p4*
+.DS_Store
+.AppleDouble
 build/
+.vscode
+.swiftpm
 _build/
 _install/

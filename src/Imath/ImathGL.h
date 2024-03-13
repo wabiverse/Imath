@@ -11,9 +11,23 @@
 #define INCLUDED_IMATHGL_H
 
 #if defined(__APPLE__)
-# include <OpenGL/gl.h>
+#    include <TargetConditionals.h>
+#    if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#        if !defined(IMATH_HAS_OPENGL)
+#            define IMATH_HAS_OPENGL 0
+#        endif /* !defined(IMATH_HAS_OPENGL) */
+#        include <OpenGLES/ES1/gl.h>
+#    else /* !TARGET_OS_IPHONE && !TARGET_IPHONE_SIMULATOR */
+#        if !defined(IMATH_HAS_OPENGL)
+#            define IMATH_HAS_OPENGL 1
+#        endif /* !defined(IMATH_HAS_OPENGL) */
+#        include <OpenGL/gl.h>
+#    endif /* TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR */
 #else
-# include <GL/gl.h>
+#    if !defined(IMATH_HAS_OPENGL)
+#        define IMATH_HAS_OPENGL 1
+#    endif /* !defined(IMATH_HAS_OPENGL) */
+#    include <GL/gl.h>
 #endif
 
 #include "ImathFun.h"
@@ -25,14 +39,18 @@
 inline void
 glVertex (const IMATH_INTERNAL_NAMESPACE::V3f& v)
 {
+#if IMATH_HAS_OPENGL
     glVertex3f (v.x, v.y, v.z);
+#endif
 }
 
 /// Call glVertex2f
 inline void
 glVertex (const IMATH_INTERNAL_NAMESPACE::V2f& v)
 {
+#if IMATH_HAS_OPENGL
     glVertex2f (v.x, v.y);
+#endif
 }
 
 /// Call glNormal3f
@@ -46,7 +64,9 @@ glNormal (const IMATH_INTERNAL_NAMESPACE::V3f& n)
 inline void
 glColor (const IMATH_INTERNAL_NAMESPACE::V3f& c)
 {
+#if IMATH_HAS_OPENGL
     glColor3f (c.x, c.y, c.z);
+#endif
 }
 
 /// Call glTranslatef
@@ -60,7 +80,9 @@ glTranslate (const IMATH_INTERNAL_NAMESPACE::V3f& t)
 inline void
 glTexCoord (const IMATH_INTERNAL_NAMESPACE::V2f& t)
 {
+#if IMATH_HAS_OPENGL
     glTexCoord2f (t.x, t.y);
+#endif
 }
 
 /// Disable GL textures
@@ -156,10 +178,20 @@ class GLPushAttrib
 {
 public:
     /// call glPushAttrib()
-    GLPushAttrib (GLbitfield mask) { glPushAttrib (mask); }
+    GLPushAttrib (GLbitfield mask)
+    {
+#if IMATH_HAS_OPENGL
+        glPushAttrib (mask);
+#endif /* IMATH_HAS_OPENGL */
+    }
 
     /// call glPopAttrib()
-    ~GLPushAttrib () { glPopAttrib (); }
+    ~GLPushAttrib ()
+    {
+#if IMATH_HAS_OPENGL
+        glPopAttrib ();
+#endif /* IMATH_HAS_OPENGL */
+    }
 };
 
 ///
@@ -171,10 +203,20 @@ class GLBegin
 {
 public:
     /// Call glBegin()
-    GLBegin (GLenum mode) { glBegin (mode); }
+    GLBegin (GLenum mode)
+    {
+#if IMATH_HAS_OPENGL
+        glBegin (mode);
+#endif /* IMATH_HAS_OPENGL */
+    }
 
     /// Call glEnd()
-    ~GLBegin () { glEnd (); }
+    ~GLBegin ()
+    {
+#if IMATH_HAS_OPENGL
+        glEnd ();
+#endif /* IMATH_HAS_OPENGL */
+    }
 };
 
 IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
