@@ -41,7 +41,7 @@ glVertex (const IMATH_INTERNAL_NAMESPACE::V3f& v)
 {
 #if IMATH_HAS_OPENGL
     glVertex3f (v.x, v.y, v.z);
-#endif
+#endif /* IMATH_HAS_OPENGL */
 }
 
 /// Call glVertex2f
@@ -50,14 +50,16 @@ glVertex (const IMATH_INTERNAL_NAMESPACE::V2f& v)
 {
 #if IMATH_HAS_OPENGL
     glVertex2f (v.x, v.y);
-#endif
+#endif /* IMATH_HAS_OPENGL */
 }
 
 /// Call glNormal3f
 inline void
 glNormal (const IMATH_INTERNAL_NAMESPACE::V3f& n)
 {
+#if IMATH_HAS_OPENGL
     glNormal3f (n.x, n.y, n.z);
+#endif /* IMATH_HAS_OPENGL */
 }
 
 /// Call glColor3f
@@ -66,14 +68,16 @@ glColor (const IMATH_INTERNAL_NAMESPACE::V3f& c)
 {
 #if IMATH_HAS_OPENGL
     glColor3f (c.x, c.y, c.z);
-#endif
+#endif /* IMATH_HAS_OPENGL */
 }
 
 /// Call glTranslatef
 inline void
 glTranslate (const IMATH_INTERNAL_NAMESPACE::V3f& t)
 {
+#if IMATH_HAS_OPENGL
     glTranslatef (t.x, t.y, t.z);
+#endif /* IMATH_HAS_OPENGL */
 }
 
 /// Call glTexCoord2f
@@ -82,18 +86,20 @@ glTexCoord (const IMATH_INTERNAL_NAMESPACE::V2f& t)
 {
 #if IMATH_HAS_OPENGL
     glTexCoord2f (t.x, t.y);
-#endif
+#endif /* IMATH_HAS_OPENGL */
 }
 
 /// Disable GL textures
 inline void
 glDisableTexture ()
 {
+#if IMATH_HAS_OPENGL
     glActiveTexture (GL_TEXTURE1);
     glBindTexture (GL_TEXTURE_2D, 0);
     glDisable (GL_TEXTURE_2D);
 
     glActiveTexture (GL_TEXTURE0);
+#endif /* IMATH_HAS_OPENGL */
 }
 
 namespace
@@ -127,32 +133,40 @@ throwBadMatrix (const IMATH_INTERNAL_NAMESPACE::M44f& m)
 inline void
 glMultMatrix (const IMATH_INTERNAL_NAMESPACE::M44f& m)
 {
+#if IMATH_HAS_OPENGL
     throwBadMatrix (m);
     glMultMatrixf ((GLfloat*) m[0]);
+#endif /* IMATH_HAS_OPENGL */
 }
 
 /// Call glMultmatrixf. Throw an exception if m is not a valid matrix for GL.
 inline void
 glMultMatrix (const IMATH_INTERNAL_NAMESPACE::M44f* m)
 {
+#if IMATH_HAS_OPENGL
     throwBadMatrix (*m);
     glMultMatrixf ((GLfloat*) (*m)[0]);
+#endif /* IMATH_HAS_OPENGL */
 }
 
 /// Call glLoadmatrixf. Throw an exception if m is not a valid matrix for GL.
 inline void
 glLoadMatrix (const IMATH_INTERNAL_NAMESPACE::M44f& m)
 {
+#if IMATH_HAS_OPENGL
     throwBadMatrix (m);
     glLoadMatrixf ((GLfloat*) m[0]);
+#endif /* IMATH_HAS_OPENGL */
 }
 
 /// Call glLoadmatrixf. Throw an exception if m is not a valid matrix for GL.
 inline void
 glLoadMatrix (const IMATH_INTERNAL_NAMESPACE::M44f* m)
 {
+#if IMATH_HAS_OPENGL
     throwBadMatrix (*m);
     glLoadMatrixf ((GLfloat*) (*m)[0]);
+#endif /* IMATH_HAS_OPENGL */
 }
 
 IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
@@ -165,8 +179,19 @@ IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 class GLPushMatrix
 {
 public:
-    GLPushMatrix () { glPushMatrix (); }
-    ~GLPushMatrix () { glPopMatrix (); }
+    GLPushMatrix ()
+    {
+#if IMATH_HAS_OPENGL
+        glPushMatrix ();
+#endif /* IMATH_HAS_OPENGL */
+    }
+
+    ~GLPushMatrix ()
+    {
+#if IMATH_HAS_OPENGL
+        glPopMatrix ();
+#endif /* IMATH_HAS_OPENGL */
+    }
 };
 
 ///
