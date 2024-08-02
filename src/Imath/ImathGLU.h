@@ -27,8 +27,23 @@
 #    if !defined(IMATH_HAS_OPENGL)
 #        define IMATH_HAS_OPENGL 1
 #    endif /* !defined(IMATH_HAS_OPENGL) */
+#    if defined(_WIN32)
+        #define WIN32_LEAN_AND_MEAN
+        #include <windows.h>
+        #if !defined(GL_GLEXT_PROTOTYPES)
+        #    define GL_GLEXT_PROTOTYPES
+        #endif // !defined(GL_GLEXT_PROTOTYPES)
+#    endif // defined(_WIN32)
 #    include <GL/gl.h>
 #    include <GL/glu.h>
+#    if defined(_WIN32)
+#        if !defined(GL_TEXTURE0)
+#            define GL_TEXTURE0 0x84C0
+#        endif // !defined(GL_TEXTURE0)
+#        if !defined(GL_TEXTURE1)
+#            define GL_TEXTURE1 0x84C1
+#        endif // !defined(GL_TEXTURE1)
+#    endif // defined(_WIN32)
 #endif /* defined(__APPLE__) */
 
 #include "ImathVec.h"

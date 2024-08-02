@@ -172,7 +172,7 @@ template <class T>
 IMATH_HOSTDEVICE inline void
 Interval<T>::makeEmpty () IMATH_NOEXCEPT
 {
-    min = std::numeric_limits<T>::max ();
+    min = (std::numeric_limits<T>::max) ();
     max = std::numeric_limits<T>::lowest ();
 }
 
@@ -181,7 +181,7 @@ IMATH_HOSTDEVICE inline void
 Interval<T>::makeInfinite () IMATH_NOEXCEPT
 {
     min = std::numeric_limits<T>::lowest ();
-    max = std::numeric_limits<T>::max ();
+    max = (std::numeric_limits<T>::max) ();
 }
 
 template <class T>
@@ -251,7 +251,7 @@ IMATH_HOSTDEVICE IMATH_CONSTEXPR14 inline bool
 Interval<T>::isInfinite () const IMATH_NOEXCEPT
 {
     if (min != std::numeric_limits<T>::lowest () ||
-        max != std::numeric_limits<T>::max ())
+        max != (std::numeric_limits<T>::max) ())
         return false;
 
     return true;

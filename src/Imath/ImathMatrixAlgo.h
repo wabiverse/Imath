@@ -888,7 +888,7 @@ checkForZeroScaleInRow (const T& scl, const Vec3<T>& row, bool exc /* = true */)
     for (int i = 0; i < 3; i++)
     {
         if ((abs (scl) < 1 &&
-             abs (row[i]) >= std::numeric_limits<T>::max () * abs (scl)))
+             abs (row[i]) >= (std::numeric_limits<T>::max) () * abs (scl)))
         {
             if (exc)
                 throw std::domain_error ("Cannot remove zero scaling "
@@ -1388,7 +1388,7 @@ checkForZeroScaleInRow (const T& scl, const Vec2<T>& row, bool exc /* = true */)
     for (int i = 0; i < 2; i++)
     {
         if ((abs (scl) < 1 &&
-             abs (row[i]) >= std::numeric_limits<T>::max () * abs (scl)))
+             abs (row[i]) >= (std::numeric_limits<T>::max) () * abs (scl)))
         {
             if (exc)
                 throw std::domain_error (
