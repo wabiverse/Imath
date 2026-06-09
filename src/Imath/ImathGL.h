@@ -228,6 +228,10 @@ public:
     }
 };
 
+// GLPushAttrib and GLBegin use GL types (GLbitfield, GLenum) directly in
+// their constructor signatures, so the entire class must be guarded.
+#if IMATH_HAS_OPENGL
+
 ///
 /// A class object that pushes/pops the current GL attribute state. This object assists with
 /// proper cleanup of the state when exceptions are thrown.
@@ -239,17 +243,13 @@ public:
     /// call glPushAttrib()
     GLPushAttrib (GLbitfield mask)
     {
-#if IMATH_HAS_OPENGL
         glPushAttrib (mask);
-#endif /* IMATH_HAS_OPENGL */
     }
 
     /// call glPopAttrib()
     ~GLPushAttrib ()
     {
-#if IMATH_HAS_OPENGL
         glPopAttrib ();
-#endif /* IMATH_HAS_OPENGL */
     }
 };
 
@@ -264,19 +264,17 @@ public:
     /// Call glBegin()
     GLBegin (GLenum mode)
     {
-#if IMATH_HAS_OPENGL
         glBegin (mode);
-#endif /* IMATH_HAS_OPENGL */
     }
 
     /// Call glEnd()
     ~GLBegin ()
     {
-#if IMATH_HAS_OPENGL
         glEnd ();
-#endif /* IMATH_HAS_OPENGL */
     }
 };
+
+#endif /* IMATH_HAS_OPENGL */
 
 IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 
