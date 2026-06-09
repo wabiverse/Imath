@@ -23,6 +23,14 @@
 #        endif /* !defined(IMATH_HAS_OPENGL) */
 #        include <OpenGL/gl.h>
 #    endif /* TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR */
+#elif defined(__ANDROID__)
+    // Android uses OpenGL ES via EGL.  The immediate-mode GL functions
+    // wrapped in this header (glVertex, glNormal, glBegin, glPushMatrix …)
+    // do not exist in GLES 2/3, and <GL/gl.h> is not present on Android.
+    // Disable all wrappers rather than pulling in a mismatched header.
+#    if !defined(IMATH_HAS_OPENGL)
+#        define IMATH_HAS_OPENGL 0
+#    endif /* !defined(IMATH_HAS_OPENGL) */
 #else
 #    if !defined(IMATH_HAS_OPENGL)
 #        define IMATH_HAS_OPENGL 1

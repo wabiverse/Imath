@@ -23,7 +23,12 @@
 #        include <OpenGL/gl.h>
 #        include <OpenGL/glu.h>
 #    endif /* TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR */
-#else      /* !defined(__APPLE__) */
+#elif defined(__ANDROID__)
+    // Android has no GLU and no <GL/gl.h>.  Disable the gluLookAt wrapper.
+#    if !defined(IMATH_HAS_OPENGL)
+#        define IMATH_HAS_OPENGL 0
+#    endif /* !defined(IMATH_HAS_OPENGL) */
+#else      /* !defined(__APPLE__) && !defined(__ANDROID__) */
 #    if !defined(IMATH_HAS_OPENGL)
 #        define IMATH_HAS_OPENGL 1
 #    endif /* !defined(IMATH_HAS_OPENGL) */
@@ -44,7 +49,7 @@
 #            define GL_TEXTURE1 0x84C1
 #        endif // !defined(GL_TEXTURE1)
 #    endif // defined(_WIN32)
-#endif /* defined(__APPLE__) */
+#endif /* defined(__APPLE__) || defined(__ANDROID__) */
 
 #include "ImathVec.h"
 
